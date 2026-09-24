@@ -23,7 +23,7 @@ export default function Hero() {
     <section className="relative w-full max-w-7xl mx-auto px-4 md:px-10 pt-32 sm:pt-40 pb-16 min-h-[90vh] flex items-center overflow-visible bg-grain">
       {/* BACKGROUND ИНДЕКС: Массивный матовый бэкграунд */}
       <div className="absolute right-0 bottom-6 font-display text-[26vw] uppercase font-black text-[#121318] leading-none select-none pointer-events-none z-0 tracking-tighter opacity-60">
-        SV
+        SM
       </div>
 
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
@@ -41,7 +41,7 @@ export default function Hero() {
               className="text-[#ffee00] animate-[pulse_1.5s_infinite]"
             />
             <span className="font-display text-[10px] tracking-[0.15em] text-[#f3f4f6] group-hover/geo:text-[#ffee00] uppercase font-black transition-colors">
-              Кривий Ріг // вул. [Твоя Вулиця, 00]
+              Дніпро // вул. [Вулиця, 00]
             </span>
           </a>
 

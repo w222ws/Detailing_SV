@@ -18,7 +18,6 @@
 
   --radius-bento: 1.25rem;
 
-  /* Настройки скоростей: верхняя идет плавно, нижняя летит в два раза быстрее */
   --animate-marquee: marquee 28s linear infinite;
   --animate-marquee-fast: marqueeReverse 14s linear infinite;
   --animate-smooth-drift: smoothDrift 8s ease-in-out infinite;
@@ -75,6 +74,8 @@ html {
   color: #f3f4f6;
   font-family: 'Plus Jakarta Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* Удерживает место под скроллбар, чтобы сайт не дергался при открытии модалок */
+  scrollbar-gutter: stable;
 }
 
 ::selection {
@@ -94,7 +95,31 @@ html {
   background-size: 200% auto;
 }
 
-/* Идеальный контурный стиль для второй линии */
 @utility text-stroke-neon {
   -webkit-text-stroke: 1px #222430;
+}
+
+/* =========================================
+   КАСТОМНЫЙ СКРОЛЛБАР (MacOS/Windows)
+   ========================================= */
+::-webkit-scrollbar {
+  width: 6px; /* Очень тонкий и аккуратный */
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Не конфликтует с модалками и фоном */
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(
+    --color-border-subtle
+  ); /* В спокойном состоянии сливается с дизайном */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(
+    --color-accent-yellow
+  ); /* При наведении дает фирменный акцент */
 }
