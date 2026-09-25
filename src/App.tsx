@@ -4,6 +4,7 @@ import Marquee from './components/Marquee';
 import Services from './components/Services';
 import Portfolio from './components/Portfolio';
 import FAQ from './components/FAQ';
+import Contact from './components/Contact';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Services />
         <Portfolio />
         <FAQ />
+        <Contact />
       </main>
     </div>
   );

@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import {
-  ArrowUpRight,
-  ChevronDown,
-  HelpCircle,
-  MessageSquare,
-} from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 
 interface FAQItem {
   id: string;
@@ -52,306 +47,135 @@ const faqData: FAQItem[] = [
   },
 ];
 
-const faqStyles = `
-  .faq-premium {
-    --faq-bg: #0a0a0c;
-    --faq-card: #121318;
-    --faq-card-soft: rgba(18, 19, 24, 0.72);
-    --faq-line: #222430;
-    --faq-text: #f3f4f6;
-    --faq-muted: #8b8f9e;
-    --faq-yellow: #ffee00;
-    --faq-green: #c9cb00;
-  }
-
-  .faq-noise {
-    background-image:
-      radial-gradient(circle at 18% 14%, rgba(255, 238, 0, 0.065), transparent 28%),
-      radial-gradient(circle at 85% 78%, rgba(255, 255, 255, 0.035), transparent 30%);
-  }
-
-  .faq-grid {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-  }
-
-  .faq-card {
-    transition:
-      border-color 0.3s ease,
-      background-color 0.3s ease,
-      transform 0.25s ease,
-      box-shadow 0.25s ease;
-  }
-
-  .faq-card:hover {
-    transform: translateY(-2px);
-  }
-
-  .faq-card-open {
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
-  }
-
-  .faq-answer-grid {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.28s ease;
-    will-change: grid-template-rows;
-  }
-
-  .faq-answer-grid-open {
-    grid-template-rows: 1fr;
-  }
-
-  .faq-answer-inner {
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  .faq-mobile-line {
-    transition:
-      height 0.35s ease,
-      opacity 0.35s ease,
-      background-color 0.35s ease;
-  }
-
-  .faq-mobile-number {
-    font-variant-numeric: tabular-nums;
-  }
-
-  @media (max-width: 639px) {
-    .faq-card:hover {
-      transform: none;
-    }
-
-    .faq-grid {
-      background-size: 42px 42px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .faq-card,
-    .faq-answer-grid,
-    .faq-mobile-line {
-      transition: none !important;
-    }
-  }
-`;
-
 export default function FAQ() {
   const [openId, setOpenId] = useState<string | null>('1');
 
   const toggleAccordion = (id: string) => {
-    setOpenId((current) => (current === id ? null : id));
+    setOpenId(openId === id ? null : id);
   };
-
-  const activeIndex = Math.max(
-    0,
-    faqData.findIndex((item) => item.id === openId),
-  );
-
-  const activeItem = openId
-    ? faqData.find((item) => item.id === openId)
-    : undefined;
 
   return (
     <section
       id="faq"
-      className="faq-premium relative isolate overflow-hidden bg-[#0a0a0c] px-4 py-24 text-white sm:px-8 sm:py-32 lg:py-36"
+      className="py-24 px-4 md:px-10 max-w-7xl mx-auto relative overflow-hidden"
     >
-      <style>{faqStyles}</style>
+      {/* ---------------- ДЕКОР НА ФОНЕ ---------------- */}
 
-      {/* Decorative atmosphere */}
-      <div
-        aria-hidden="true"
-        className="faq-noise pointer-events-none absolute inset-0"
-      />
+      {/* Мягкий неоновый свет */}
+      <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[400px] h-[400px] bg-[#ffee00]/5 rounded-full blur-[130px] pointer-events-none z-0" />
 
-      <div
-        aria-hidden="true"
-        className="faq-grid pointer-events-none absolute inset-0 opacity-80"
-      />
+      {/* Тонкие геометрические орбиты (кольца) */}
+      <div className="absolute top-[-10%] right-[-10%] w-[600px] md:w-[900px] h-[600px] md:h-[900px] border border-[#ffee00]/10 rounded-full pointer-events-none z-0" />
+      <div className="absolute top-[5%] right-[5%] w-[400px] md:w-[600px] h-[400px] md:h-[600px] border border-[#ffee00]/5 rounded-full pointer-events-none z-0" />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-[10%] top-[22%] h-52 w-52 rounded-full bg-[#ffee00]/[0.04] blur-[90px]"
-      />
+      {/* Огромный типографический вотермарк */}
+      <div className="absolute bottom-10 left-[-5%] text-[12rem] md:text-[20rem] lg:text-[25rem] font-display font-black text-white/[0.02] pointer-events-none select-none z-0 leading-none tracking-tighter">
+        FAQ
+      </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="grid items-start gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
-          {/* LEFT — EDITORIAL INTRO */}
-          <div className="lg:sticky lg:top-28">
-            <div className="mb-7 flex items-end justify-between gap-6">
-              <div>
-                <p className="mb-5 inline-flex items-center gap-3 text-[9px] font-black uppercase tracking-[0.22em] text-[#ffee00] sm:text-[10px]">
-                  <span
-                    className="h-px w-7 bg-[#ffee00]/60"
-                    aria-hidden="true"
-                  />
-                  Часті запитання
-                </p>
+      {/* ---------------- КОНТЕНТ ---------------- */}
 
-                <h2 className="portfolio-display max-w-xl text-[clamp(2rem,6vw,4.2rem)] font-black uppercase leading-[0.96] tracking-[-0.055em] text-[#f3f4f6]">
-                  ВСЕ, ЩО ВАРТО
-                  <span className="mt-2 block bg-gradient-to-r from-[#ffee00] via-white to-[#ffee00] bg-clip-text pb-1 text-transparent">
-                    ЗНАТИ ПЕРЕД ЗАПИСОМ
-                  </span>
-                </h2>
-              </div>
-            </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10">
+        {/* Лівий блок з заголовком і закликом */}
+        <div className="lg:col-span-5 lg:sticky lg:top-28">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#ffee00]/20 bg-[#ffee00]/5 mb-5 backdrop-blur-sm">
+            <HelpCircle size={14} className="text-[#ffee00]" />
+            <span className="font-display text-[10px] tracking-[0.2em] uppercase text-[#ffee00] font-black">
+              Часті запитання
+            </span>
+          </div>
 
-            <p className="max-w-xl text-sm leading-[1.9] text-[#8b8f9e] sm:text-base">
-              Зібрали відповіді на найпопулярніші питання клієнтів щодо
-              гарантії, процесів та догляду за автомобілем.
+          {/* Увеличенный мобильный шрифт + фикс переполнения на ПК (адаптирован размер под десктоп) */}
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-4xl xl:text-5xl uppercase font-black tracking-tight text-[#f3f4f6] leading-[1.0] mb-5 break-words">
+            ВІДПОВІДІ <br className="hidden sm:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffee00] via-white to-[#ffee00] bg-size-200 animate-gradient">
+              НА ВАШІ
+            </span>{' '}
+            <br />
+            ЗАПИТАННЯ
+          </h2>
+
+          <p className="font-sans text-sm sm:text-base text-[#8b8f9e] leading-relaxed mb-8">
+            Зібрали відповіді на найпопулярніші питання клієнтів щодо гарантії,
+            процесів та догляду за автомобілем.
+          </p>
+
+          {/* Преміальна картка із крутою кнопкою */}
+          <div className="p-8 bg-[#121318]/90 backdrop-blur-md border border-[#222430] rounded-[2rem] relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#ffee00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+            <h4 className="font-display text-xl font-black uppercase text-[#f3f4f6] mb-3 relative z-10">
+              Залишились питання?
+            </h4>
+            <p className="font-sans text-sm text-[#8b8f9e] mb-8 relative z-10">
+              Напишіть нам напряму. Безкоштовно проконсультуємо та розрахуємо
+              точну вартість під ваше авто за 5 хвилин.
             </p>
 
-            {/* MOBILE ACCENT */}
-            <div className="mt-8 flex items-center gap-3 sm:hidden">
-              <span className="h-px w-8 bg-[#ffee00]/60" aria-hidden="true" />
-              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#686d7c]">
-                Відповіді на головне
-              </span>
-            </div>
-
-            {/* CONTACT CARD */}
-            <div className="mt-6 rounded-[1.5rem] border border-[#222430] bg-[#121318] p-5 sm:mt-10 sm:p-6">
-              <div className="flex items-center gap-4">
-                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#ffee00] text-[#0a0a0c]">
-                  <MessageSquare size={19} strokeWidth={2.4} />
-                </div>
-
-                <div className="min-w-0">
-                  <h3 className="portfolio-display text-[12px] font-black uppercase text-[#f3f4f6] sm:text-sm">
-                    Залишились питання?
-                  </h3>
-                  <p className="mt-1 text-xs leading-[1.7] text-[#8b8f9e]">
-                    Проконсультуємо та розрахуємо вартість під ваше авто за 5
-                    хвилин.
-                  </p>
-                </div>
-
-                <ArrowUpRight
-                  className="ml-auto h-5 w-5 shrink-0 text-[#ffee00]"
-                  aria-hidden="true"
-                />
-              </div>
-            </div>
+            <a
+              href="https://t.me/твій_нік_тут" // <--- ТУТ ВСТАВ СВІЙ ЛІНК НА ТЕЛЕГРАМ
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn relative inline-flex items-center justify-center w-full px-8 py-4 bg-[#ffee00] text-[#0a0a0c] font-display font-black text-[11px] sm:text-xs uppercase tracking-[0.15em] rounded-xl overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_20px_rgba(255,238,0,0.3)] z-10"
+            >
+              <span className="relative z-10">Написати в Telegram</span>
+              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out" />
+            </a>
           </div>
+        </div>
 
-          {/* RIGHT — ACCORDION */}
-          <div className="space-y-3 sm:space-y-4">
-            {faqData.map((item, idx) => {
-              const isOpen = openId === item.id;
+        {/* Правий блок — Аккордеон */}
+        <div className="lg:col-span-7 space-y-4 pt-4 lg:pt-0">
+          {faqData.map((item, idx) => {
+            const isOpen = openId === item.id;
 
-              return (
-                <article
-                  key={item.id}
-                  className={`faq-card overflow-hidden rounded-[1.35rem] border sm:rounded-[1.75rem] ${
-                    isOpen
-                      ? 'faq-card-open border-[#ffee00]/40 bg-[#121318]'
-                      : 'border-[#222430] bg-[rgba(18,19,24,0.58)] hover:border-[#ffee00]/20'
-                  }`}
+            return (
+              <div
+                key={item.id}
+                className={`border rounded-2xl transition-all duration-300 overflow-hidden backdrop-blur-sm ${
+                  isOpen
+                    ? 'bg-[#121318]/90 border-[#ffee00]/40 shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
+                    : 'bg-[#121318]/50 border-[#222430] hover:border-[#ffee00]/20'
+                }`}
+              >
+                <button
+                  onClick={() => toggleAccordion(item.id)}
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 select-none"
                 >
-                  <button
-                    type="button"
-                    onClick={() => toggleAccordion(item.id)}
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-answer-${item.id}`}
-                    className="group relative w-full px-4 py-4 text-left sm:px-6 sm:py-6"
-                  >
-                    <div className="flex items-center gap-3 sm:gap-5">
-                      {/* Mobile / desktop number rail */}
-                      <div className="flex shrink-0 flex-col items-center gap-2">
-                        <span
-                          className={`portfolio-display faq-mobile-number text-[10px] font-black transition-colors duration-300 sm:text-xs ${
-                            isOpen ? 'text-[#ffee00]' : 'text-[#4e5260]'
-                          }`}
-                        >
-                          {String(idx + 1).padStart(2, '0')}
-                        </span>
-
-                        <span
-                          className={`faq-mobile-line w-px sm:h-7 ${
-                            isOpen
-                              ? 'h-7 bg-[#ffee00]'
-                              : 'h-3 bg-[#2a2d36] opacity-70'
-                          }`}
-                          aria-hidden="true"
-                        />
-                      </div>
-
-                      <div className="min-w-0 flex-1">
-                        <div className="mb-2 flex items-center gap-2">
-                          <span
-                            className={`text-[8px] font-black uppercase tracking-[0.18em] transition-colors duration-300 sm:text-[9px] ${
-                              isOpen ? 'text-[#ffee00]' : 'text-[#686d7c]'
-                            }`}
-                          >
-                            {item.category}
-                          </span>
-
-                          {isOpen && (
-                            <span
-                              aria-hidden="true"
-                              className="h-1 w-1 rounded-full bg-[#ffee00]"
-                            />
-                          )}
-                        </div>
-
-                        <h3 className="portfolio-display pr-2 text-[12px] font-black uppercase leading-[1.35] tracking-[-0.02em] text-[#f3f4f6] sm:text-base lg:text-[17px]">
-                          {item.question}
-                        </h3>
-                      </div>
-
-                      <span
-                        className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border transition-all duration-300 sm:h-11 sm:w-11 ${
-                          isOpen
-                            ? 'rotate-180 border-[#ffee00] bg-[#ffee00] text-[#0a0a0c]'
-                            : 'border-[#2a2d36] bg-[#181a20] text-[#8b8f9e] group-hover:border-[#ffee00]/30 group-hover:text-[#ffee00]'
-                        }`}
-                        aria-hidden="true"
-                      >
-                        <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5" />
-                      </span>
-                    </div>
-                  </button>
+                  <div className="flex items-center gap-4 sm:gap-5">
+                    <span className="font-display font-black text-sm text-[#ffee00]/60 shrink-0">
+                      0{idx + 1}
+                    </span>
+                    {/* Увеличенный шрифт вопроса для мобилок (text-lg) */}
+                    <h3 className="font-display text-lg sm:text-xl uppercase font-black text-[#f3f4f6] leading-snug">
+                      {item.question}
+                    </h3>
+                  </div>
 
                   <div
-                    id={`faq-answer-${item.id}`}
-                    className={`faq-answer-grid ${
-                      isOpen ? 'faq-answer-grid-open' : ''
+                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-[#222430] flex items-center justify-center shrink-0 transition-transform duration-300 ${
+                      isOpen
+                        ? 'rotate-180 bg-[#ffee00] text-[#0a0a0c] border-[#ffee00]'
+                        : 'text-[#8b8f9e] bg-[#1a1c24]'
                     }`}
                   >
-                    <div className="faq-answer-inner">
-                      <div className="border-t border-[#222430]/80 px-4 pb-5 pt-4 sm:px-6 sm:pb-6 sm:pt-5">
-                        <div className="flex gap-3 sm:gap-4">
-                          <div
-                            aria-hidden="true"
-                            className="mt-1 h-auto min-h-12 w-px shrink-0 bg-gradient-to-b from-[#ffee00] via-[#ffee00]/40 to-transparent"
-                          />
-
-                          <div className="min-w-0">
-                            <div className="mb-3 inline-flex rounded-md border border-[#ffee00]/15 bg-[#ffee00]/[0.06] px-2.5 py-1">
-                              <span className="font-mono text-[9px] font-bold uppercase tracking-[0.12em] text-[#ffee00]">
-                                {item.category}
-                              </span>
-                            </div>
-
-                            <p className="max-w-2xl text-[12px] leading-[1.85] text-[#8b8f9e] sm:text-sm">
-                              {item.answer}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <ChevronDown size={18} />
                   </div>
-                </article>
-              );
-            })}
-          </div>
+                </button>
+
+                {/* Розгортаємий текст */}
+                {isOpen && (
+                  // Увеличенный шрифт ответа (text-sm sm:text-base)
+                  <div className="px-5 sm:px-6 pb-6 pt-0 font-sans text-sm sm:text-base text-[#8b8f9e] leading-relaxed border-t border-[#222430]/50 mt-2 pt-4">
+                    <span className="inline-block px-2.5 py-0.5 rounded bg-[#ffee00]/10 text-[#ffee00] text-[10px] sm:text-xs font-mono uppercase mb-3">
+                      {item.category}
+                    </span>
+                    <p>{item.answer}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
